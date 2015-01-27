@@ -1,1 +1,5 @@
 # CountDown
+
+```shell
+npm start
+```
