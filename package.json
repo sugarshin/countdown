@@ -1,6 +1,6 @@
 {
   "name": "countdown.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CountDown",
   "main": "countdown.js",
   "scripts": {

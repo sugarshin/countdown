@@ -56,13 +56,13 @@ class CountDown
     return this
 
   start: ->
-    do start = =>
+    do calleee = =>
       start = new Date
       remaind = @end - start
       if remaind > 0
         timer = setTimeout =>
           @update remaind
-          start()
+          calleee()
         , 1000
       else
         clearTimeout timer

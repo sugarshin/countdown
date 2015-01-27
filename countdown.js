@@ -75,16 +75,16 @@
     };
 
     CountDown.prototype.start = function() {
-      var start;
-      (start = (function(_this) {
+      var calleee;
+      (calleee = (function(_this) {
         return function() {
-          var remaind, timer;
+          var remaind, start, timer;
           start = new Date;
           remaind = _this.end - start;
           if (remaind > 0) {
             return timer = setTimeout(function() {
               _this.update(remaind);
-              return start();
+              return calleee();
             }, 1000);
           } else {
             clearTimeout(timer);
