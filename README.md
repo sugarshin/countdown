@@ -1,6 +1,6 @@
 # Countdown
 
-[![Build Status](https://travis-ci.org/sugarshin/countdown.svg?branch=master)](https://travis-ci.org/sugarshin/countdown)
+[![Build Status](https://travis-ci.org/sugarshin/countdown.svg?branch=master)](https://travis-ci.org/sugarshin/countdown) [![GitHub version](https://badge.fury.io/gh/sugarshin%2Fcountdown.svg)](http://badge.fury.io/gh/sugarshin%2Fcountdown) [![License](http://img.shields.io/:license-mit-blue.svg)](http://sugarshin.mit-license.org/)
 
 Countdown
 
