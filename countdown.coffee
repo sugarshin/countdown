@@ -8,6 +8,8 @@ do (root = this, factory = ($) ->
       hourChar: '.js-countdown-hour-char'
       minChar: '.js-countdown-min-char'
       secChar: '.js-countdown-sec-char'
+      digit: 2
+      onAfterFinish: ->
 
     _formatNum: (digit, num) ->
       str = new String num
@@ -20,10 +22,11 @@ do (root = this, factory = ($) ->
       @opts = $.extend {}, @_defaults, opts
       @_aDay = 24 * 60 * 60 * 1000
 
-      @$dayChar = $(@opts.dayChar).text '00'
-      @$hourChar = $(@opts.hourChar).text '00'
-      @$minChar = $(@opts.minChar).text '00'
-      @$secChar = $(@opts.secChar).text '00'
+      zero = @_formatNum @opts.digit, 0
+      @$dayChar = $(@opts.dayChar).text zero
+      @$hourChar = $(@opts.hourChar).text zero
+      @$minChar = $(@opts.minChar).text zero
+      @$secChar = $(@opts.secChar).text zero
 
     constructor: (@end, opts) ->
       @_configure opts
@@ -36,10 +39,10 @@ do (root = this, factory = ($) ->
       return this
 
     update: (remaind) ->
-      d = @_formatNum 2, Math.floor(remaind / @_aDay)
-      h = @_formatNum 2, Math.floor((remaind % @_aDay) / (60 * 60 * 1000))
-      m = @_formatNum 2, Math.floor((remaind % @_aDay) / (60 * 1000)) % 60
-      s = @_formatNum 2, Math.floor((remaind % @_aDay) / 1000) % 60 % 60
+      d = @_formatNum @opts.digit, Math.floor(remaind / @_aDay)
+      h = @_formatNum @opts.digit, Math.floor((remaind % @_aDay) / (60 * 60 * 1000))
+      m = @_formatNum @opts.digit, Math.floor((remaind % @_aDay) / (60 * 1000)) % 60
+      s = @_formatNum @opts.digit, Math.floor((remaind % @_aDay) / 1000) % 60 % 60
       @updateChar d, h, m, s
       return this
 
@@ -54,6 +57,7 @@ do (root = this, factory = ($) ->
           , 1000
         else
           clearTimeout timer
+          @opts.onAfterFinish?()
       return this
 
 ) ->

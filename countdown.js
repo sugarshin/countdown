@@ -13,7 +13,9 @@
       dayChar: '.js-countdown-day-char',
       hourChar: '.js-countdown-hour-char',
       minChar: '.js-countdown-min-char',
-      secChar: '.js-countdown-sec-char'
+      secChar: '.js-countdown-sec-char',
+      digit: 2,
+      onAfterFinish: function() {}
     };
 
     Countdown.prototype._formatNum = function(digit, num) {
@@ -30,12 +32,14 @@
     };
 
     Countdown.prototype._configure = function(opts) {
+      var zero;
       this.opts = $.extend({}, this._defaults, opts);
       this._aDay = 24 * 60 * 60 * 1000;
-      this.$dayChar = $(this.opts.dayChar).text('00');
-      this.$hourChar = $(this.opts.hourChar).text('00');
-      this.$minChar = $(this.opts.minChar).text('00');
-      return this.$secChar = $(this.opts.secChar).text('00');
+      zero = this._formatNum(this.opts.digit, 0);
+      this.$dayChar = $(this.opts.dayChar).text(zero);
+      this.$hourChar = $(this.opts.hourChar).text(zero);
+      this.$minChar = $(this.opts.minChar).text(zero);
+      return this.$secChar = $(this.opts.secChar).text(zero);
     };
 
     function Countdown(_at_end, opts) {
@@ -53,10 +57,10 @@
 
     Countdown.prototype.update = function(remaind) {
       var d, h, m, s;
-      d = this._formatNum(2, Math.floor(remaind / this._aDay));
-      h = this._formatNum(2, Math.floor((remaind % this._aDay) / (60 * 60 * 1000)));
-      m = this._formatNum(2, Math.floor((remaind % this._aDay) / (60 * 1000)) % 60);
-      s = this._formatNum(2, Math.floor((remaind % this._aDay) / 1000) % 60 % 60);
+      d = this._formatNum(this.opts.digit, Math.floor(remaind / this._aDay));
+      h = this._formatNum(this.opts.digit, Math.floor((remaind % this._aDay) / (60 * 60 * 1000)));
+      m = this._formatNum(this.opts.digit, Math.floor((remaind % this._aDay) / (60 * 1000)) % 60);
+      s = this._formatNum(this.opts.digit, Math.floor((remaind % this._aDay) / 1000) % 60 % 60);
       this.updateChar(d, h, m, s);
       return this;
     };
@@ -65,7 +69,7 @@
       var _start;
       (_start = (function(_this) {
         return function() {
-          var remaind, start, timer;
+          var remaind, start, timer, _base;
           start = new Date;
           remaind = _this.end - start;
           if (remaind > 0) {
@@ -74,7 +78,8 @@
               return _start();
             }, 1000);
           } else {
-            return clearTimeout(timer);
+            clearTimeout(timer);
+            return typeof (_base = _this.opts).onAfterFinish === "function" ? _base.onAfterFinish() : void 0;
           }
         };
       })(this))();

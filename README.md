@@ -13,7 +13,8 @@ npm i -S sugarshin/countdown
 ```coffeescript
 Countdown = require 'countdown'
 
-new Countdown endDate
+countdown = new Countdown endDate
+countdown.start()
 ```
 
 or
@@ -22,7 +23,8 @@ or
 <script src="jquery.js"></script>
 <script src="countdown.js"></script>
 <script>
-  new Countdown(endDate);
+  countdown = new Countdown(endDate);
+  countdown.start();
 </script>
 ```
 

@@ -1,6 +1,6 @@
 {
   "name": "countdown",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "countdown",
   "repository": "git@github.com:sugarshin/countdown.git",
   "main": "./countdown.js",
